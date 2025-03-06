@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Loader2 } from "lucide-react";
+import { Search, Loader2, X } from "lucide-react";
 import { isGdriveUrl } from "@/lib/validate";
 import { ChangeEvent, useState, KeyboardEvent } from "react";
 import { extractId } from "@/lib/parser";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 
 export const Searchbar = () => {
   const updateMimeData = useMimeStore((state) => state.updateMimeStore);
+  const resetMimeStore = useMimeStore((state) => state.resetMimeStore);
 
   const [inputValue, setInputValue] = useState<string | null>(null);
   const [isExtracting, setIsExtracting] = useState<boolean | null>(null);
@@ -68,6 +69,17 @@ export const Searchbar = () => {
             }
           }}
         />
+
+        {inputValue && (
+          <button className="border border-neutral-800 rounded-md bg-neutral-800 hover:text-red-500">
+            <X
+              onClick={() => {
+                setInputValue(null);
+                resetMimeStore();
+              }}
+            />
+          </button>
+        )}
       </div>
     </div>
   );
