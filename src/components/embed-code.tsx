@@ -104,7 +104,7 @@ export const EmbedCode: React.FC<{ codeType: "movie" | "series" }> = ({
             /(S\d+)\s*E\d+/,
             "$1"
           )}\n[<span style="color: #ff0000;">${getHumanReadableFileSize(
-          validFiles.reduce((acc, file) => acc + file.size, 0) /
+          validFiles.reduce((acc, file) => acc + Number(file.size), 0) /
             validFiles.length
         )}/<span style="color: #0000ff;">E</span></span>]</strong></span></p>\n`
       : "") +
