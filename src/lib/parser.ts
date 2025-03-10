@@ -22,7 +22,7 @@ export const extractId: (url: string) => string | null = (url) => {
 
 export const getHumanReadableFileSize = (bytes: number) => {
   try {
-    const pBytes = (bytes);
+    const pBytes = bytes;
     const fileSizeUnits = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
     if (pBytes === 0) return "0 B";
@@ -42,4 +42,31 @@ export const getEpisodeNumber = (episodeName: string): number | null => {
   const match = episodeReg.exec(episodeName);
   const epNum = match ? parseInt(match[1], 10) : null;
   return epNum;
+};
+
+export const getSearchTerm = (fileName: string) => {
+  const originalSeriesMatch = fileName.match(
+    /^(.*?)\s*\((\d{4})\).*?S(\d+)E\d+/i
+  );
+  if (originalSeriesMatch) {
+    const [, title, year, season] = originalSeriesMatch;
+    const formattedTitle = title.replace(/\./g, " ").trim();
+
+    return encodeURIComponent(formattedTitle);
+  }
+
+  const originalMovieMatch = fileName.match(/^(.*?)\s*\((\d{4})\)/);
+  if (originalMovieMatch) {
+    const [, title, year] = originalMovieMatch;
+    return encodeURIComponent(`${title.trim()}-${year}`);
+  }
+
+  const dotSeparatedSeriesMatch = fileName.match(/^(.*?)\.S(\d+)E\d+/i);
+  if (dotSeparatedSeriesMatch) {
+    const [, title, season] = dotSeparatedSeriesMatch;
+    const formattedTitle = title.replace(/\./g, " ").trim();
+    return encodeURIComponent(`${formattedTitle}`);
+  }
+
+  return encodeURIComponent(fileName.replace(/\./g, "-"));
 };

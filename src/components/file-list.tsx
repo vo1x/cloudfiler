@@ -1,8 +1,13 @@
 "use client";
 
-import { getEpisodeNumber, getHumanReadableFileSize } from "@/lib/parser";
+import {
+  getEpisodeNumber,
+  getHumanReadableFileSize,
+  getSearchTerm,
+} from "@/lib/parser";
 import { useMimeStore } from "@/stores/mimeStore";
 import type { MimeData } from "@/types/mime";
+import { Link } from "lucide-react";
 import {
   FileIcon,
   LinkIcon,
@@ -13,14 +18,13 @@ import {
   Archive,
   Video,
   FileVideo,
+  Link2,
+  SquareArrowOutUpRight,
   ClipboardCopy,
   ClipboardCheck,
-  Link,
   Info,
 } from "lucide-react";
 import { useState } from "react";
-
-
 
 export const FileList: React.FC = () => {
   const mime = useMimeStore((state) => state.mime);
@@ -33,7 +37,7 @@ export const FileList: React.FC = () => {
         {mime.files.map((file: MimeData) => (
           <File key={file.id} file={file} />
         ))}
-        {mime.subFolders.map((folder: MimeData) => (
+        {mime?.subFolders?.map((folder: MimeData) => (
           <File key={folder.id} file={folder} />
         ))}
       </div>
@@ -63,7 +67,9 @@ const File: React.FC<{ file: MimeData }> = ({ file }) => {
     "application/vnd.android.package-archive", // APK
   ];
 
-  const seriesString = `[maxbutton id="2" text="Episode X" url="${webContentLink}"]`;
+  const seriesString = `[maxbutton id="2" text="Episode ${getEpisodeNumber(
+    name
+  )}" url="${webContentLink}"]`;
 
   const movieString = `
                       <p style="text-align: center;">[mks_separator style="solid" height="5"]</p>
@@ -81,8 +87,18 @@ const File: React.FC<{ file: MimeData }> = ({ file }) => {
   return (
     <div className="bg-neutral-900 rounded-md border border-neutral-800 p-4  transition-colors duration-200 shadow-md">
       <div className="flex items-center gap-2 mb-2">
-        <div className="flex flex-col gap-1 font-semibold text-white">
-          <span>{name}</span>
+        <div className="flex flex-col gap-1 font-semibold text-white w-full">
+          <div className="gap-4 flex items-center justify-between">
+            <span>{name}</span>
+            <a
+              href={`https://uhdmovies.fyi/search/${getSearchTerm(file.name)}`}
+              className=" right-0 pr-4 cursor-pointer"
+              target="_blank"
+            >
+              <SquareArrowOutUpRight></SquareArrowOutUpRight>
+            </a>
+          </div>
+
           <div className="flex items-center gap-2">
             {mimeType === "folder" && (
               <span className="bg-neutral-800 gap-2 border border-neutral-700 p-1 px-2 rounded-2xl text-xs text-neutral-300 flex items-center w-max">
