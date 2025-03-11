@@ -1,6 +1,7 @@
-import { Header } from "./header";
-import { SignInButton, SignOutButton } from "./auth";
 import { auth } from "@/auth";
+
+import { SignInButton, SignOutButton } from "./auth";
+import { Header } from "./header";
 import { Searchbar } from "./search-bar";
 
 export const Navbar = async () => {

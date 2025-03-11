@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-
-import { LucideIcon } from "lucide-react";
+import { LucideIcon } from 'lucide-react';
+import { useState } from 'react';
 
 export const Tag: React.FC<{ icon?: LucideIcon; tag: string | null }> = ({
   icon: Icon,

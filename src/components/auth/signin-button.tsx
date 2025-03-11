@@ -1,5 +1,6 @@
-import { signIn } from "@/auth";
 import { FaGoogle } from "react-icons/fa";
+
+import { signIn } from "@/auth";
 
 export const SignInButton = () => {
   return (

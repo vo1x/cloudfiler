@@ -1,7 +1,7 @@
 "use client";
 
-import { LucideIcon } from "lucide-react";
-import { useState } from "react";
+import { LucideIcon } from 'lucide-react';
+import { useState } from 'react';
 
 export const CopyButton: React.FC<{
   icon?: LucideIcon;
