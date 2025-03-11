@@ -2,11 +2,9 @@
 
 import { useMimeStore } from "@/stores/mimeStore";
 
-import { ClipboardCopy } from "lucide-react";
-
 export const MimeMeta = () => {
   const mime = useMimeStore((state) => state.mime);
-  
+
   return (
     <div className="bg-neutral-900 w-full max-w-96 max-h-96 h-max overflow-y-auto flex flex-col justify-between gap-4 rounded-lg p-4">
       {Object.keys(mime)

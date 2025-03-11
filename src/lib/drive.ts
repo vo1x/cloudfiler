@@ -1,4 +1,3 @@
-const MAX_CONCURRENT_REQUESTS = 5;
 const BASE_URL = "https://www.googleapis.com/drive/v3/files";
 
 interface FetchOptions {
@@ -6,7 +5,6 @@ interface FetchOptions {
   headers: Record<string, string>;
   body?: string;
 }
-
 
 interface Session {
   name?: string | null;
@@ -30,7 +28,6 @@ interface FolderInfo extends FileInfo {
     webContentLink: string;
   }[];
 }
-
 
 export const delay = async (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -101,11 +98,10 @@ export async function getFolderContents(
   return files;
 }
 
-
 export async function getFolderContentsWithSubfolders(
   session: Session,
   folderId: string
-): Promise<{ files: FileInfo[], subfolders: FileInfo[] }> {
+): Promise<{ files: FileInfo[]; subfolders: FileInfo[] }> {
   let files: FileInfo[] = [];
   let subfolders: FileInfo[] = [];
   let pageToken: string | null = null;
@@ -115,15 +111,15 @@ export async function getFolderContentsWithSubfolders(
     const response = await fetch(url, {
       headers: await getHeaders(session),
     });
-    
+
     const data = await response.json();
-    
-    const fetchedItems = data.files.filter((item: FileInfo) => 
-      item.mimeType !== "application/vnd.google-apps.folder"
+
+    const fetchedItems = data.files.filter(
+      (item: FileInfo) => item.mimeType !== "application/vnd.google-apps.folder"
     );
-    
-    const fetchedSubfolders = data.files.filter((item: FileInfo) => 
-      item.mimeType === "application/vnd.google-apps.folder"
+
+    const fetchedSubfolders = data.files.filter(
+      (item: FileInfo) => item.mimeType === "application/vnd.google-apps.folder"
     );
 
     files.push(...fetchedItems);

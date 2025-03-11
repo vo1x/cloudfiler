@@ -1,5 +1,6 @@
-import { signOut } from "@/auth";
 import { LogOut } from "lucide-react";
+
+import { signOut } from "@/auth";
 
 export const SignOutButton = () => {
   return (

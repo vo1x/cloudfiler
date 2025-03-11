@@ -1,7 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { connectMongoDB } from "@/lib/mongodb";
+
 import { refreshAccessToken } from "@/lib/drive";
+import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({

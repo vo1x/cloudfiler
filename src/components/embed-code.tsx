@@ -1,14 +1,14 @@
 "use client";
 
+import { ClipboardCopy } from "lucide-react";
 import { ChangeEvent, useState } from "react";
+
+import { getEpisodeNumber, getHumanReadableFileSize } from "@/lib/parser";
 import { useMimeStore } from "@/stores/mimeStore";
+
 import { Checkbox } from "./ui/checkbox";
 
 import type { MimeData } from "@/types/mime";
-
-import { ClipboardCopy } from "lucide-react";
-
-import { getEpisodeNumber, getHumanReadableFileSize } from "@/lib/parser";
 
 export const EmbedCode: React.FC<{ codeType: "movie" | "series" }> = ({
   codeType,
