@@ -48,7 +48,7 @@ const File: React.FC<{ file: MimeData }> = ({ file }) => {
   const fileSize = getHumanReadableFileSize(size);
   const searchTerm = getSearchTerm(file.name);
 
-  const seriesString = `[maxbutton id="2" text="Episode ${epNumber}" url="${webContentLink}"]`;
+  const seriesString = ARCHIVE_MIME_TYPES.includes(mimeType)?`[maxbutton id="3" url="${webContentLink}"]`:`[maxbutton id="2" text="Episode ${epNumber}" url="${webContentLink}"]`;
 
   const movieString = `
 <p style="text-align: center;">[mks_separator style="solid" height="5"]</p>

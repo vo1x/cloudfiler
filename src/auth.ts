@@ -54,7 +54,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         try {
           await connectMongoDB();
           let userExists = await User.findOne({ email });
-
           if (!userExists) {
             userExists = await User.create({
               name,
